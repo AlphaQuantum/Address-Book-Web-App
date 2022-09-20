@@ -1,0 +1,94 @@
+﻿@page "/fetchdata"
+
+<PageTitle>Contatti Rubrica</PageTitle>
+
+@using Rubrica.Data
+@inject WeatherForecastService ForecastService
+
+
+<h1>Contatti Rubrica</h1>
+
+<label>Nome</label>
+<input @bind="nome" placeholder="Nome" /> 
+
+<label>Cognome</label>
+<input @bind="cognome" placeholder="Cognome" />
+<br>
+
+<label>E-Mail</label>
+<input @bind="email" placeholder="E-Mail" />
+
+<label>Telefono</label>
+<input @bind="tel" placeholder="Telefono" />
+<br>
+
+<label>Indirizzo</label>
+<input @bind="indirizzo" placeholder="Indirizzo" />
+
+<label>Numero Civico</label>
+<input @bind="nCiv" placeholder="Numero Civico" />
+
+<label>CAP</label>
+<input @bind="cap" placeholder="CAP" />
+
+<label>Città</label>
+<input @bind="city" placeholder="City" />
+<br>
+
+<label>Note</label>
+<textarea @bind="note" placeholder="Note" />
+
+<button @onclick="Save">Invia</button>
+
+
+<table>
+
+    <tr>
+        <th>Nome</th>
+        <th>Cognome</th>
+        <th>Indirizzo</th>
+        <th>Numero Civico</th>
+        <th>CAP</th>
+        <th>Città</th>
+        <th>Telefono</th>
+        <th>Mail</th>
+        <th>Note</th>
+    </tr>
+
+    @foreach (var item in Contatti)
+    {
+        <tr>
+            <td>@item.nome</td>
+            <td>@item.cognome</td>
+            <td>@item.indirizzo</td>
+            <td>@item.nCiv</td>
+            <td>@item.cap</td>
+            <td>@item.city</td>
+            <td>@item.tel</td>
+            <td>@item.email</td>
+            <td>@item.note</td>
+        </tr>
+    }
+    
+</table>
+
+@code {
+    public record Contatto(string nome, string cognome, string indirizzo, int nCiv, int cap, string city, int tel, string email, string note);
+
+    private List<Contatto> Contatti = new List<Contatto>();
+
+    private string nome = String.Empty; 
+    private string cognome = String.Empty;
+    private string indirizzo = String.Empty;
+    private int nCiv;
+    private int cap;
+    private string city = String.Empty;
+    private int tel;
+    private string email = String.Empty;
+    private string note = String.Empty;
+
+    private void Save()
+    {
+        Contatti.Add(new(nome, cognome, indirizzo, nCiv, cap, city, tel, email, note));
+    }
+}
